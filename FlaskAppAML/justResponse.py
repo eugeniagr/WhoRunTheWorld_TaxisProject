@@ -1,46 +1,99 @@
+ 
 import urllib.request
-import os
-# If you are using Python 3+, import urllib instead of urllib2
+import json
 
-import json 
-
-
-data =  {
-
+data = {
         "Inputs": {
-
                 "input1":
-                {
-                    "ColumnNames": ["gender", "age", "size", "weight"],
-                    "Values": [ [ "0", "0", "22", "0" ], [ "0", "0", "3", "0" ], ]
-                },        },
-            "GlobalParameters": {
-}
+                [
+                    {
+                            'Column 0': "0",   
+                            'distance': "0.44",   
+                            'cab_type': "Lyft",   
+                            'price': "5",   
+                            'surge_multiplier': "1",   
+                            'name': "Shared",   
+                            'temp': "38.46",   
+                            'clouds': "0.29",   
+                            'pressure': "1022.25",   
+                            'rain': "0",   
+                            'time_stamp_w': "1544953501",   
+                            'humidity': "0.76",   
+                            'wind': "7.68",   
+                            'day': "6",   
+                            'hour': "9",   
+                    }
+                ],
+        },
+    "GlobalParameters":  {
     }
+}
 
 body = str.encode(json.dumps(data))
-#example URL: https://ussouthcentral.services.azureml.net/workspaces/91af20abfc58455182eaaa615d581c59/services/da7cdb9359a443f0abdef36d30ce8f1c/execute?api-version=2.0&details=true
-url = os.environ.get('URL','<replace with the URL for your webservice')
-api_key = os.environ.get('API_KEY','<API_KEY>') # Replace this with the API key for the web service)
+
+url = 'https://ussouthcentral.services.azureml.net/workspaces/7065fb6f40454835bea030055b531ec5/services/faabf68e26524eae81063780e2d0f823/execute?api-version=2.0&format=swagger'
+api_key = 'abc123' # Replace this with the API key for the web service
 headers = {'Content-Type':'application/json', 'Authorization':('Bearer '+ api_key)}
 
+req = urllib.request.Request(url, body, headers)
 
-
-req =urllib.request.Request(url, body, headers) 
-print(req)
 try:
-    response =urllib.request.urlopen(req)
-
-    # If you are using Python 3+, replace urllib2 with urllib.request in the above code:
-    # req = urllib.request.Request(url, body, headers) 
-    # response = urllib.request.urlopen(req)
+    response = urllib.request.urlopen(req)
 
     result = response.read()
-    print(result) 
+    print(result)
 except urllib.error.HTTPError as error:
     print("The request failed with status code: " + str(error.code))
 
     # Print the headers - they include the requert ID and the timestamp, which are useful for debugging the failure
     print(error.info())
+    print(json.loads(error.read().decode("utf8", 'ignore')))
+import urllib.request
+import json
 
-    print(json.loads(error.read()))                 
+data = {
+        "Inputs": {
+                "input1":
+                [
+                    {
+                            'Column 0': "0",   
+                            'distance': "0.44",   
+                            'cab_type': "Lyft",   
+                            'price': "5",   
+                            'surge_multiplier': "1",   
+                            'name': "Shared",   
+                            'temp': "38.46",   
+                            'clouds': "0.29",   
+                            'pressure': "1022.25",   
+                            'rain': "0",   
+                            'time_stamp_w': "1544953501",   
+                            'humidity': "0.76",   
+                            'wind': "7.68",   
+                            'day': "6",   
+                            'hour': "9",   
+                    }
+                ],
+        },
+    "GlobalParameters":  {
+    }
+}
+
+body = str.encode(json.dumps(data))
+
+url = 'https://ussouthcentral.services.azureml.net/workspaces/7065fb6f40454835bea030055b531ec5/services/faabf68e26524eae81063780e2d0f823/execute?api-version=2.0&format=swagger'
+api_key = 'niVoiBEitkNPMB9nxWC97cHc33jqphpImgETjO8r+D1zH1KvWnA+5d0lq8KUa/csUoxNXZvWNe7HeiCxnBbGuA==' # Replace this with the API key for the web service
+headers = {'Content-Type':'application/json', 'Authorization':('Bearer '+ api_key)}
+
+req = urllib.request.Request(url, body, headers)
+
+try:
+    response = urllib.request.urlopen(req)
+
+    result = response.read()
+    print(result)
+except urllib.error.HTTPError as error:
+    print("The request failed with status code: " + str(error.code))
+
+    # Print the headers - they include the requert ID and the timestamp, which are useful for debugging the failure
+    print(error.info())
+    print(json.loads(error.read().decode("utf8", 'ignore')))
