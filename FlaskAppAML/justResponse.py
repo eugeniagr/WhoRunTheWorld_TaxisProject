@@ -19,7 +19,7 @@ data = {
     "GlobalParameters":  {
     }
 }
-print(data)
+
 body = str.encode(json.dumps(data))
 
 url = 'https://ussouthcentral.services.azureml.net/workspaces/7f5b50e1d4c747779d1d23d9b3ee6629/services/cf44a1b883de4b94911e4029f2ec804f/execute?api-version=2.0&format=swagger'

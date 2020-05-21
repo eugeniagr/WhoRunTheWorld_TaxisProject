@@ -53,7 +53,7 @@ def home():
     "GlobalParameters":  {
     }
 }
-        print(data)
+        
         
         # Serialize the input data into json string
         body = str.encode(json.dumps(data))
@@ -73,7 +73,7 @@ def home():
             # result = json.dumps(result, indent=4, sort_keys=True)
             return render_template(
                 'result.html',
-                title="This is the result from AzureML running our example Student Brain Weight Prediction:",
+                title="This is the result from AzureML running our example Cab Price Prediction:",
                 result=result)
 
         # An HTTP error
@@ -104,15 +104,7 @@ def contact():
         message='Your contact page.'
     )
 
-@app.route('/about')
-def about():
-    """Renders the about page."""
-    return render_template(
-        'about.html',
-        title='About',
-        year=datetime.now().year,
-        message='Your application description page.'
-    )
+
 
 def do_something_pretty(jsondata):
     """We want to process the AML json result to be more human readable and understandable"""
@@ -122,7 +114,7 @@ def do_something_pretty(jsondata):
     # - it's cluster assignment and distances from all centroid centers from k-means model
     value = jsondata["Results"]["output1"][0]["Scored Label Mean"]
     #valuelen = len(value)
-    print(value)
+   
     # Convert values (a list) to a list of tuples [(cluster#,distance),...]
     # valuetuple = list(zip(range(valuelen-1), value[1:(valuelen)]))
     # Convert the list of tuples to one long list (flatten it)
@@ -135,7 +127,7 @@ def do_something_pretty(jsondata):
     #repstr = '<tr><td>%d</td><td>%s</td></tr>' * (valuelen-1)
     # print(repstr)
     
-    output='Your estimated price would be : '+ value
+    output='Your estimated price would be : $'+ value
     # Build the entire html table for the results data representation
     #tablestr = 'Cluster assignment: %s<br><br><table border="1"><tr><th>Cluster</th><th>Distance From Center</th></tr>'+ repstr + "</table>"
     #return tablestr % data
