@@ -11,8 +11,8 @@ from FlaskAppAML import app
 
 from FlaskAppAML.forms import SubmissionForm
 
-BRAIN_ML_KEY=os.environ.get('API_KEY', "3ykY3j9WZDYvS0Dvf5VoJ1kA0yVT5HVzT+foY4SzKvD6LJhHoysBjlEQWaOniNQCGqsjKrytONq1kdxEWo3Scg==")
-BRAIN_URL = os.environ.get('URL', "https://ussouthcentral.services.azureml.net/workspaces/91af20abfc58455182eaaa615d581c59/services/da7cdb9359a443f0abdef36d30ce8f1c/execute?api-version=2.0&details=true")
+BRAIN_ML_KEY=os.environ.get('API_KEY', "+xY4jJ2dDpls+QmcIOiulJ91+LizTgJKvNuf3g5G22pVNK5RwnQ1CrIfTfSYlfAxZtkk9p6uJgtLWMVu5s+W6Q==")
+BRAIN_URL = os.environ.get('URL', "https://ussouthcentral.services.azureml.net/workspaces/7f5b50e1d4c747779d1d23d9b3ee6629/services/cf44a1b883de4b94911e4029f2ec804f/execute?api-version=2.0&format=swagger")
 # Deployment environment variables defined on Azure (pull in with os.environ)
 
 # Construct the HTTP request header
@@ -34,23 +34,27 @@ def home():
         # Plug in the data into a dictionary object 
         #  - data from the input form
         #  - text data must be converted to lowercase
-        data =  {
-              "Inputs": {
-                "input1": {
-                  "ColumnNames": ["gender", "age", "size", "weight"],
-                  "Values": [ [
-                      0,
-                      1,
-                      form.dayWeek.data.lower(),
-                      0
-
-                    ]
-                  ]
-                }
-              },
-              "GlobalParameters": {}
-            }
-
+    
+        data = {
+        "Inputs": {
+                "input1":
+                [
+                    {
+                                     'distance': form.distance.data.lower(),  
+                                     'cab_type': form.cabType.data.lower(),   
+                                     'name':  form.cabName.data.lower(),   
+                                     'temp': form.temperature.data.lower(),  
+                                     'rain':form.rain.data.lower(),  
+                                    'day': form.dayWeek.data.lower(),   
+                                     'hour': form.hourDay.data.lower(),
+                    }
+                ],
+        },
+    "GlobalParameters":  {
+    }
+}
+        print(data)
+        
         # Serialize the input data into json string
         body = str.encode(json.dumps(data))
 
@@ -116,7 +120,7 @@ def do_something_pretty(jsondata):
 
     # We only want the first array from the array of arrays under "Value" 
     # - it's cluster assignment and distances from all centroid centers from k-means model
-    value = jsondata["Results"]["output1"]["value"]["Values"][0]
+    value = jsondata["Results"]["output1"][0]["Scored Label Mean"]
     #valuelen = len(value)
     print(value)
     # Convert values (a list) to a list of tuples [(cluster#,distance),...]
@@ -130,7 +134,8 @@ def do_something_pretty(jsondata):
     # Build a placeholder for the cluster#,distance values
     #repstr = '<tr><td>%d</td><td>%s</td></tr>' * (valuelen-1)
     # print(repstr)
-    output='For a brain with the size of : '+value[2]+ "<br/>Our Algorithm would calculate the weight to be: "+ value[4]
+    
+    output='Your estimated price would be : '+ value
     # Build the entire html table for the results data representation
     #tablestr = 'Cluster assignment: %s<br><br><table border="1"><tr><th>Cluster</th><th>Distance From Center</th></tr>'+ repstr + "</table>"
     #return tablestr % data

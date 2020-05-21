@@ -45,7 +45,16 @@
  </form>
  <script>
      option3=[("Lux","Lux"),("Lux Black","Lux Black"),("Lux Black XL","Lux Black XL"),("Lyft","Lyft"),("Lyft XL","Lyft XL"),("Shared","Shared")]
+
      option4=[("Black","Black"),("Black SUV","Black SUV"),("Taxi","Taxi"),("UberPool","UberPool"),("UberX","UberX"),("UberXL","UberXL"),("WAV","WAV")]
+     select=document.getElementById("cabType")
+    select.innerHTML=""
+     option3.forEach(element => {
+    option=document.createElement("option") 
+    option.text=element
+    option.value=element
+    select.add(option)
+ });
      cablist=[]
  document.getElementById("cabName").onchange=function(){console.log(this.value)
 if (this.value=="Lyft"){
