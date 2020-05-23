@@ -20,7 +20,7 @@ CAB TYPE
 
 LEVEL OF SERVICE
 
-Lux
+LYFT
  - Lux
  - Lux Black
  - Lux Black XL
@@ -28,7 +28,7 @@ Lux
  - Lyft XL
  - Shared
  
-Black
+UBER
  - Black
  - Black SUV
  - Taxi
