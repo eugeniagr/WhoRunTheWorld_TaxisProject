@@ -7,12 +7,11 @@ We created a model that predicts the price of rides based on the weather pattern
 
 PREDICTION EXPERIMENT IS BASED ON:
 
-WEATHER CONDITIONS
 - Temperature
 - Rain
-Distance
-Time of Day
-Day of the week
+- Distance
+- Time of Day
+- Day of the week
 
 CAB TYPE
 - UBER
