@@ -10,9 +10,9 @@ PREDICTION EXPERIMENT IS BASED ON:
 WEATHER CONDITIONS
 - Temperature
 - Rain
-DISTANCE
-TIME OF DAY
-DAY OF THE WEEK
+Distance
+Time of Day
+Day of the week
 
 CAB TYPE
 - UBER
