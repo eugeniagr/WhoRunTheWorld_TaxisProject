@@ -11,7 +11,12 @@ body {
     padding-bottom: 20px;
     font-family: "xkcd", Times;
     font-size: 16px;
-    color:greenyellow;
+    color:pink;
+    background-image: url('../images/AzureML.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
+  
+   
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -52,6 +57,7 @@ input[type="checkbox"].input-validation-error {
 .validation-summary-valid {
     display: none;
 }
+
 
 /* xkcd theme borrowed from https://github.com/imkevinxu/xkcdgraphs/blob/master/style.css */
 /* Artfully masterminded by Kevin Xu <kevin@imkevinxu.com> */
