@@ -11,8 +11,8 @@ from FlaskAppAML import app
 
 from FlaskAppAML.forms import SubmissionForm
 
-BRAIN_ML_KEY=os.environ.get('API_KEY', "<Your APIkey here>")
-BRAIN_URL = os.environ.get('URL', "<your url here>")
+BRAIN_ML_KEY=os.environ.get('API_KEY', "+xY4jJ2dDpls+QmcIOiulJ91+LizTgJKvNuf3g5G22pVNK5RwnQ1CrIfTfSYlfAxZtkk9p6uJgtLWMVu5s+W6Q==")
+BRAIN_URL = os.environ.get('URL', "https://ussouthcentral.services.azureml.net/workspaces/7f5b50e1d4c747779d1d23d9b3ee6629/services/cf44a1b883de4b94911e4029f2ec804f/execute?api-version=2.0&format=swagger")
 # Deployment environment variables defined on Azure (pull in with os.environ)
 
 # Construct the HTTP request header
@@ -29,28 +29,32 @@ def home():
     form = SubmissionForm(request.form)
 
     # Form has been submitted
-    if request.method == 'POST' and form.validate():
+    if request.method == 'POST' :
 
         # Plug in the data into a dictionary object 
         #  - data from the input form
         #  - text data must be converted to lowercase
-        data =  {
-              "Inputs": {
-                "input1": {
-                  "ColumnNames": ["gender", "age", "size", "weight"],
-                  "Values": [ [
-                      0,
-                      1,
-                      form.title.data.lower(),
-                      0
-
-                    ]
-                  ]
-                }
-              },
-              "GlobalParameters": {}
-            }
-
+    
+        data = {
+        "Inputs": {
+                "input1":
+                [
+                    {
+                                     'distance': form.distance.data.lower(),  
+                                     'cab_type': form.cabType.data.lower(),   
+                                     'name':  form.cabName.data.lower(),   
+                                     'temp': form.temperature.data.lower(),  
+                                     'rain':form.rain.data.lower(),  
+                                    'day': form.dayWeek.data.lower(),   
+                                     'hour': form.hourDay.data.lower(),
+                    }
+                ],
+        },
+    "GlobalParameters":  {
+    }
+}
+        
+        
         # Serialize the input data into json string
         body = str.encode(json.dumps(data))
 
@@ -69,7 +73,7 @@ def home():
             # result = json.dumps(result, indent=4, sort_keys=True)
             return render_template(
                 'result.html',
-                title="This is the result from AzureML running our example Student Brain Weight Prediction:",
+                title="This is the result from AzureML running our example Cab Price Prediction:",
                 result=result)
 
         # An HTTP error
@@ -100,15 +104,7 @@ def contact():
         message='Your contact page.'
     )
 
-@app.route('/about')
-def about():
-    """Renders the about page."""
-    return render_template(
-        'about.html',
-        title='About',
-        year=datetime.now().year,
-        message='Your application description page.'
-    )
+
 
 def do_something_pretty(jsondata):
     """We want to process the AML json result to be more human readable and understandable"""
@@ -116,9 +112,9 @@ def do_something_pretty(jsondata):
 
     # We only want the first array from the array of arrays under "Value" 
     # - it's cluster assignment and distances from all centroid centers from k-means model
-    value = jsondata["Results"]["output1"]["value"]["Values"][0]
+    value = jsondata["Results"]["output1"][0]["Scored Label Mean"]
     #valuelen = len(value)
-    print(value)
+   
     # Convert values (a list) to a list of tuples [(cluster#,distance),...]
     # valuetuple = list(zip(range(valuelen-1), value[1:(valuelen)]))
     # Convert the list of tuples to one long list (flatten it)
@@ -130,7 +126,8 @@ def do_something_pretty(jsondata):
     # Build a placeholder for the cluster#,distance values
     #repstr = '<tr><td>%d</td><td>%s</td></tr>' * (valuelen-1)
     # print(repstr)
-    output='For a brain with the size of : '+value[2]+ "<br/>Our Algorithm would calculate the weight to be: "+ value[4]
+    
+    output='Your estimated price would be : $'+ value
     # Build the entire html table for the results data representation
     #tablestr = 'Cluster assignment: %s<br><br><table border="1"><tr><th>Cluster</th><th>Distance From Center</th></tr>'+ repstr + "</table>"
     #return tablestr % data

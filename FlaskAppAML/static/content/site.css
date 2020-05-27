@@ -2,15 +2,21 @@
 
 @font-face {
     font-family: "xkcd";
-    src: url('Humor-Sans-1.0.ttf');
+    src: url('ostrich-regular.ttf');
+   
 }
 
 body {
     padding-top: 50px;
     padding-bottom: 20px;
-    font-family: "xkcd", sans-serif;
+    font-family: "xkcd", Times;
     font-size: 16px;
-    color: #333;
+    color:pink;
+    background-image: url('../images/AzureML.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
+  
+   
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -24,7 +30,7 @@ input,
 select,
 textarea {
     max-width: 280px;
-    font-family: sans-serif;
+    font-family: Comic ;
 }
 
 /* styles for validation helpers */
@@ -51,6 +57,7 @@ input[type="checkbox"].input-validation-error {
 .validation-summary-valid {
     display: none;
 }
+
 
 /* xkcd theme borrowed from https://github.com/imkevinxu/xkcdgraphs/blob/master/style.css */
 /* Artfully masterminded by Kevin Xu <kevin@imkevinxu.com> */

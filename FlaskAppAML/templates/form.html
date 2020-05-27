@@ -1,21 +1,77 @@
 ﻿{% extends "layout.html" %}
 
 {% block content %}
-<h2>Determine the weight of your brain based on the it's Size</h2>
+<h2>Determine the cab price depending on hour of the day, cab type and weather data</h2>
 <form method=post>
     <dl>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
         <p>
-            <h3>Size</h3>
-            Enter the size of the brain you wish to get the weight <br/><br/>
-            {{form.title}}
+            <h3>Day of the week (0 for Sunday and 6 for Saturday)</h3>
+            {{form.dayWeek}}
         </p>
 
         <p>
-            <h3>Name the Brain (optional)</h3> 
-          You can give a name to the brain you are "weighing", if you like.<br /><br />
-            {{form.text}}
+            <h3>Cab Name</h3> 
+            {{form.cabName}}
         </p>
+        <p>
+            <h3>Cab Type</h3> 
+            {{form.cabType}}
+        </p>
+        <p>
+            <h3>Hour of the day</h3> 
+            {{form.hourDay}}
+        </p>
+            </div>
+            <div class="col-md-6">
+        <p>
+            <h3>Rain (Inches for the last hr, from 0 to 0.078)</h3> 
+            {{form.rain}}
+        </p>
+        <p>
+            <h3>Temperature (°F)</h3> 
+            {{form.temperature}}
+        </p>
+        <p>
+            <h3>Distance (miles)</h3> 
+            {{form.distance}}
+        </p>
+            </div>
+        </div>
     </dl>
-    <p><input type="submit" value="submit"</p>
+    <p><input type="submit" value="submit" </p>
  </form>
+ <script>
+     option3=[("Lux","Lux"),("Lux Black","Lux Black"),("Lux Black XL","Lux Black XL"),("Lyft","Lyft"),("Lyft XL","Lyft XL"),("Shared","Shared")]
+
+     option4=[("Black","Black"),("Black SUV","Black SUV"),("Taxi","Taxi"),("UberPool","UberPool"),("UberX","UberX"),("UberXL","UberXL"),("WAV","WAV")]
+     select=document.getElementById("cabType")
+    select.innerHTML=""
+     option3.forEach(element => {
+    option=document.createElement("option") 
+    option.text=element
+    option.value=element
+    select.add(option)
+ });
+     cablist=[]
+ document.getElementById("cabName").onchange=function(){console.log(this.value)
+if (this.value=="Lyft"){
+     cablist=option3
+ }else if (this.value=="Uber"){
+     cablist=option4
+ }
+ select=document.getElementById("cabType")
+ select.innerHTML=""
+ cablist.forEach(element => {
+    option=document.createElement("option") 
+    option.text=element
+    option.value=element
+    select.add(option)
+ });
+
+ }
+
+</script>
 {% endblock %}
