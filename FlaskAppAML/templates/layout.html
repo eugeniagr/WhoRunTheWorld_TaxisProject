@@ -4,13 +4,39 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }} - Our Flask Application</title>
-    <link rel="stylesheet" type="text/css" href="/static/content/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="/static/content/site.css" />
+        
+    <link rel="stylesheet" type="text/css" href="/static/content/site.css">
+    <link rel="stylesheet" href="https://bootswatch.com/4/minty/bootstrap.min.css">
+
     <script src="/static/scripts/modernizr-2.6.2.js"></script>
 </head>
 
 <body>
     
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary no-pad">
+        <a class="navbar-brand offset-1 alert-secondary bigger-block" href="/" >Who Run The World Team</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        
+        <div class="collapse navbar-collapse" id="navbarColor01">
+          <ul class="nav nav-pills offset-7">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Prediction <span class="sr-only">(current)</span></a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://public.tableau.com/views/CabPrice_Prediction/Story1?:display_count=y&publish=yes&:origin=viz_share_link">Visualization</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('contact') }}">Contact</a>
+              </li>
+          </ul>
+        </div>
+      </nav>
+      
+<!-- 
+
     <div class="navbar navbar-inverse navbar-fixed-top  ">
         <div class="container">
             <div class="navbar-header">
@@ -27,7 +53,9 @@
                 </ul>
             </div>
         </div>
-    </div>
+    </div> -->
+
+    <div><h1>Cab price prediction depending on multiple variables</h1></div>
 
     <div class="container body-content">
         {% block content %}{% endblock %}
